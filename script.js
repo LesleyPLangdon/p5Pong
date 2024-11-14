@@ -59,6 +59,10 @@ function draw() {
     //square(x, y, size);
     //STEP 7
     square(ballX, ballY, ballSize);
+    //STEP 12
+    // move ball
+    ballX = ballX + (ballSpeed * ballDx);
+    ballY = ballY + (ballSpeed * ballDy);
 
     //STEP 8
     //scoreboard
@@ -66,6 +70,7 @@ function draw() {
     fill(255);
     textSize (30);
     // text(string, startX, startY); x and y are bottom left
+
     //STEP 10
     text(p1Score, 350, 50);
     text(p2Score, 450, 50);
