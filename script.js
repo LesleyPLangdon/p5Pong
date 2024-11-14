@@ -64,6 +64,13 @@ function draw() {
     ballX = ballX + (ballSpeed * ballDx);
     ballY = ballY + (ballSpeed * ballDy);
 
+    // STEP 13
+    // collide with top / bottom walls
+    if (ballY + ballSize/2 >= 500) { //y position + half of the height
+        //hit wall so bounce
+        ballDy = ballDy * -1; //bounce
+    } // close if > height
+
     //STEP 8
     //scoreboard
     noStroke();
