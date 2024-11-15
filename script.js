@@ -1,4 +1,5 @@
 //STEP 4
+// player variables
 let p1X = 20;
 let p1Y = 250;
 let p2X = 780;
@@ -17,8 +18,8 @@ let ballY = 250;
 let ballSize = 20;
 //STEP 13
 let ballSpeed =2;
-let ballDx =1;
-let ballDy = 1;
+let ballDirectionX = 1;
+let ballDirectionY = 1;
 
 //STEP 9
 //scoreboard
@@ -34,6 +35,10 @@ function setup() {
 } //close setup
 //STEP 2
 function draw() {
+    // STEP 17
+    keyPressed();
+    keyTyped();
+
 
     //STEP 2
     // draw court
@@ -61,15 +66,30 @@ function draw() {
     square(ballX, ballY, ballSize);
     //STEP 12
     // move ball
-    ballX = ballX + (ballSpeed * ballDx);
-    ballY = ballY + (ballSpeed * ballDy);
+    ballX = ballX + (ballSpeed * ballDirectionX);
+    ballY = ballY + (ballSpeed * ballDirectionY);
 
-    // STEP 13
+    // STEP 14
     // collide with top / bottom walls
     if (ballY + ballSize/2 >= 500) { //y position + half of the height
         //hit wall so bounce
-        ballDy = ballDy * -1; //bounce
+        ballDirectionY = ballDirectionY * -1; //bounce
     } // close if > height
+    if (ballY - ballSize/2 <= 0) {
+        ballDirectionY = ballDirectionY * -1;
+    } 
+    // comment out X diretion of ball movement to test
+
+    // STEP 15 
+    // collide with players
+    if (ballX >= p2X - pWidth/2 && ballX <= p2X + pWidth/2 && ballY >= p2Y - pHeight/2 && ballY <= p2Y + pHeight/2 ) {
+        ballDirectionX = ballDirectionX * -1;
+     }
+     if (ballX >= p1X - pWidth/2 && ballX <= p1X + pWidth/2 && ballY >= p1Y - pHeight/2 && ballY <= p1Y + pHeight/2 ) {
+        ballDirectionX = ballDirectionX * -1;
+     }
+     // comment out Y direction of ball movement to test
+
 
     //STEP 8
     //scoreboard
@@ -81,7 +101,41 @@ function draw() {
     //STEP 10
     text(p1Score, 350, 50);
     text(p2Score, 450, 50);
-}
+
+    // STEP 19
+    if (ballX >= 800) {
+        p1Score += 1;
+        ballX = 400;
+        ballY = 250;
+        ballDirectionX = -1;
+    }
+    if (ballX <= 0) {
+        p2Score += 1;
+        ballX = 400;
+        ballY = 250;
+        ballDirectionX = 1;
+    }
+} // close draw
 
 //STEP 11
 // take 5 minutes to talk with your neighbor about what functionality needs to be added to the program
+
+// STEP 16
+function keyPressed() {
+    if (keyCode == UP_ARROW && keyIsPressed == true) {
+        p2Y = p2Y - p2Speed;
+    }
+    if (keyCode == DOWN_ARROW && keyIsPressed == true) {
+        p2Y = p2Y + p2Speed;
+    }
+}
+// STEP 18
+function keyTyped() {
+    if (key == 'w' && keyIsPressed == true) {
+        p1Y = p1Y - p1Speed;
+    } 
+    if (key == 's' && keyIsPressed == true) {
+        p1Y = p1Y + p1Speed;
+    } 
+
+}
